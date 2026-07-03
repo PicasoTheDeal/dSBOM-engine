@@ -1,0 +1,52 @@
+name: Production Release Pipeline
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Compile and Publish Engine
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Configure Linux Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libssl-dev cmake g++-11
+
+    - name: Compile Optimized Binary
+      run: |
+        cmake -B build \
+              -DCMAKE_BUILD_TYPE=Release \
+              -DCMAKE_CXX_COMPILER=g++-11 \
+              -DCMAKE_CXX_FLAGS="-O3 -fno-rtti -fno-exceptions"
+        cmake --build build --parallel $(nproc)
+
+    - name: Prepare Assets Workspace
+      run: |
+        mkdir release_assets
+        # Move the compiled engine into the asset staging area
+        cp build/dSBOM-engine release_assets/dsbom-engine-linux-amd64
+        
+    - name: Compute Cryptographic Checksums
+      run: |
+        cd release_assets
+        # Generate standard SHA256 verification map
+        sha256sum dsbom-engine-linux-amd64 > SHA256SUMS.txt
+
+    - name: Publish Production GitHub Release
+      uses: softprops/action-gh-release@v2
+      with:
+        files: |
+          release_assets/dsbom-engine-linux-amd64
+          release_assets/SHA256SUMS.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
