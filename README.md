@@ -24,6 +24,8 @@ Host Context (dSBOM-engine)
         └── SYS_mmap / SYS_mprotect                     └── OpenSSL EVP Stream
 ```
 
+<img width="372" height="430" alt="image" src="https://github.com/user-attachments/assets/26a24c4f-2f3d-4db7-b9a4-65797dc50f23" />
+
 The tracing state machine decodes the x86-64 register file at every syscall entry-exit boundary to capture lifecycle-critical state changes:
 
     SYS_execve (59) / SYS_execveat (322): Resets the per-task dynamic mapping ledger and initiates a new component lifecycle evaluation.
