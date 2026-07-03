@@ -1,3 +1,8 @@
+[![Latest Release](https://img.shields.io/github/v/release/PicasoTheDeal/dSBOM-engine?color=blue)](https://github.com/PicasoTheDeal/dSBOM-engine/releases)
+[![Security Scanning](https://github.com/PicasoTheDeal/dSBOM-engine/actions/workflows/security.yml/badge.svg)](https://github.com/PicasoTheDeal/dSBOM-engine/actions/workflows/security.yml)
+[![Verified Profile](https://img.shields.io/badge/Security-CodeQL_Passed-brightgreen.svg)]()
+[![Vulnerability Audit](https://github.com/PicasoTheDeal/dSBOM-engine/actions/workflows/trivy.yml/badge.svg)](https://github.com/PicasoTheDeal/dSBOM-engine/actions/workflows/trivy.yml)
+
 # dSBOM-engine
 
 Non-invasive runtime Software Bill of Materials (SBOM) generation engine. The system derives component identity, linkage, and cryptographic integrity assertions natively from the Linux kernel virtual filesystem (VFS) and tracer subsystems, eliminating userspace injection, application instrumentation, or static manifest approximation.
