@@ -5,3 +5,4 @@ bin/
 *.a
 runtime-sbom.json
 .vscode/
+.idea/
